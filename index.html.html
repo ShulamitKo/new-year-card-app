@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>יצירת ברכת שנה טובה - שולמית</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&family=Rubik:wght@400;700&display=swap');
+        :root {
+            --primary-color: #FFD700; /* זהב */
+            --secondary-color: #40E0D0; /* טורקיז */
+            --text-color: #333333;
+            --highlight-color: #FF6347; /* טומטו */
+        }
+        body, html {
+            font-family: 'Heebo', 'Rubik', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://raw.githubusercontent.com/ShulamitKo/new-year-card-app/refs/heads/main/pic.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.9);
+            z-index: -1;
+        }
+        .overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            backdrop-filter: blur(5px);
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .card-header, .popup-content h3 {
+            text-align: center;
+            font-family: 'Rubik', 'Heebo', sans-serif;
+            font-weight: 700;
+            font-size: clamp(22px, 4vw, 32px);
+            color: var(--highlight-color);
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--primary-color);
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-header::before, .popup-content h3::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: clamp(14px, 2.5vw, 16px);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: clamp(8px, 2vw, 10px);
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: clamp(14px, 2.5vw, 16px);
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        button {
+            width: 100%;
+            padding: clamp(10px, 2.5vw, 12px);
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: clamp(16px, 3vw, 18px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+        button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        button:hover {
+            background-color: #E6C200;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #shareWhatsApp {
+            background-color: #25D366;
+            color: white;
+        }
+        #shareWhatsApp:hover {
+            background-color: #128C7E;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-left-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .creator-tag {
+            text-align: center;
+            margin-top: 20px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            color: var(--text-color);
+            padding: 8px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .creator-tag a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .creator-tag a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(64, 224, 208, 0.3);
+        }
+        .creator-tag a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--secondary-color);
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+        .creator-tag a:hover::after {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+        .creator-tag i {
+            font-size: 24px;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            position: relative;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--primary-color);
+            backdrop-filter: blur(5px);
+        }
+        .popup-content h3 {
+            text-align: center;
+            font-family: 'Rubik', 'Heebo', sans-serif;
+            font-weight: 700;
+            font-size: 36px;
+            color: var(--highlight-color);
+            padding: 30px 20px 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--primary-color);
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: -30px -30px 20px;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-content h3 small {
+            display: block;
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: var(--text-color);
+            margin-top: 5px;
+            font-weight: normal;
+        }
+        #finalGreetingText {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            font-size: 18px;
+            line-height: 1.6;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        #finalGreetingText:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3), inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .popup-button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        #copyButton {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        #copyButton:hover {
+            background-color: #36c0b0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        #shareWhatsApp {
+            background-color: #25D366;
+            color: white;
+        }
+        #shareWhatsApp:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .close-popup:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+        @media (max-width: 768px) {
+            .card {
+                max-width: 95%;
+            }
+            body::before {
+                background-position: center top;
+            }
+            .popup-content {
+                width: 95%;
+                padding: 20px;
+            }
+            .popup-buttons {
+                flex-direction: column;
+            }
+            .popup-button {
+                margin-bottom: 10px;
+            }
+        }
+        #shareWhatsApp, .creator-tag a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        #shareWhatsApp i, .creator-tag a i {
+            font-size: 20px;
+        }
+        #copyButton, #shareWhatsApp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        #copyButton i, #shareWhatsApp i {
+            font-size: 20px;
+        }
+        .card {
+            backdrop-filter: blur(5px);
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .card-header::after {
+            content: '🍯🍎';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+        input, select, textarea {
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        button {
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #shareWhatsApp:hover {
+            animation: pulse 1s infinite;
+        }
+        .creator-tag {
+            position: relative;
+            overflow: hidden;
+        }
+        .creator-tag::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(64, 224, 208, 0) 0%,
+                rgba(64, 224, 208, 0.1) 50%,
+                rgba(64, 224, 208, 0) 100%
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        .card-header {
+            position: relative;
+            padding-top: 60px;
+        }
+        .holiday-icons {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            overflow: hidden;
+            height: 40px;
+        }
+        .holiday-icon {
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .holiday-icon:nth-child(even) { animation-delay: 1.5s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @media (max-width: 480px) {
+            .card-header {
+                padding-top: 50px;
+            }
+            .holiday-icon {
+                font-size: 20px;
+            }
+            .holiday-icons {
+                gap: 8px;
+            }
+        }
+    </style>
+    <!-- הוספת קישור ל-Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <div class="card">
+            <div class="card-header">
+                <div class="holiday-icons">
+                    <span class="holiday-icon">🍎</span>
+                    <span class="holiday-icon">🍯</span>
+                    <span class="holiday-icon">🍎</span>
+                    <span class="holiday-icon">🍯</span>
+                    <span class="holiday-icon">🍎</span>
+                    <span class="holiday-icon">🍯</span>
+                    <span class="holiday-icon">🍎</span>
+                    <span class="holiday-icon">🍯</span>
+                    <span class="holiday-icon">🍎</span>
+                    <span class="holiday-icon">🍯</span>
+                </div>
+                נסח ברכת שנה טובה בכל סגנון שתבחר
+            </div>
+            <div class="card-content">
+                <div class="form-group">
+                    <label for="sender">שם השולח</label>
+                    <input type="text" id="sender" name="sender" placeholder="הכנס את שמך">
+                </div>
+                <div class="form-group">
+                    <label for="recipient">שם הנמען</label>
+                    <input type="text" id="recipient" name="recipient" placeholder="למי מיועדת הברכה?">
+                </div>
+                <div class="form-group">
+                    <label for="relationship">הקשר שלי לנמען</label>
+                    <input type="text" id="relationship" name="relationship" placeholder="לדוגמה: חבר, בן משפחה, עמית לעבודה">
+                </div>
+                <div class="form-group">
+                    <label for="greeting">טקסט הברכה</label>
+                    <textarea id="greeting" name="greeting" rows="4" placeholder="כתוב את ברכתך כאן"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="achievements">הישגים לציון</label>
+                    <textarea id="achievements" name="achievements" rows="2" placeholder="הישגים משמעותיים של הנמע בשנה החולפת"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="goals">מטרות לשנה החדשה</label>
+                    <textarea id="goals" name="goals" rows="2" placeholder="מטרות או שאיפות שאתה מאחל לנמען"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="memories">זיכרונות משותפים</label>
+                    <textarea id="memories" name="memories" rows="2" placeholder="זיכרון או חוויה משותפת משמעותית"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="style">סגנון הברכה</label>
+                    <select id="style" name="style">
+                        <option value="">בחר סגנון</option>
+                        <option value="funny">מצחיק</option>
+                        <option value="formal">רשמי</option>
+                        <option value="friendly">חברותי</option>
+                        <option value="poetic">שירי</option>
+                        <option value="inspirational">מעורר השראה</option>
+                    </select>
+                </div>
+                <button onclick="createGreeting()">צור ברכה</button>
+                <div id="loading">
+                    <div class="spinner"></div>
+                    <p>מעבד את הבקשה, אנא המתן...</p>
+                </div>
+                <div class="creator-tag">
+                    נוצר על ידי שולמית 
+                    <a href="https://wa.me/972527609961" target="_blank">
+                        <i class="fab fa-whatsapp"></i> 052-760-9961
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <h3>
+                הנה הברכה 🎉
+                <small>תוכל גם לערוך</small>
+            </h3>
+            <textarea id="finalGreetingText"></textarea>
+            <div class="popup-buttons">
+                <button id="copyButton" class="popup-button" onclick="copyGreeting()">
+                    <i class="far fa-copy"></i> העתק ברכה
+                </button>
+                <button id="shareWhatsApp" class="popup-button" onclick="shareOnWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> שתף בווצאפ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createGreeting() {
+            const data = {
+                sender: document.getElementById('sender').value,
+                recipient: document.getElementById('recipient').value,
+                relationship: document.getElementById('relationship').value,
+                greeting: document.getElementById('greeting').value,
+                achievements: document.getElementById('achievements').value,
+                goals: document.getElementById('goals').value,
+                memories: document.getElementById('memories').value,
+                style: document.getElementById('style').value
+            };
+
+            document.getElementById('loading').style.display = 'block';
+
+            const webhookUrl = 'https://hook.eu2.make.com/zzqj0mzlnzwxf7qp9gt97rpt3knvbcqs';
+            
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(finalGreeting => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('finalGreetingText').value = finalGreeting;
+                document.getElementById('popupOverlay').style.display = 'flex';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loading').style.display = 'none';
+                alert('ירעה שגיאה בקבלת הברכה. נסה שנית מאוחר יותר.');
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const greeting = document.getElementById('finalGreetingText').value;
+            const encodedGreeting = encodeURIComponent(greeting);
+            window.open(`https://wa.me/?text=${encodedGreeting}`, '_blank');
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+        }
+
+        function copyGreeting() {
+            const greetingText = document.getElementById('finalGreetingText');
+            greetingText.select();
+            document.execCommand('copy');
+            alert('הברכה הועתקה ללוח!');
+        }
+    </script>
+</body>
+</html>
