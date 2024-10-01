@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>יצירת ברכת שנה טובה - שולמית</title>
+    <style>
+        :root {
+            --primary-color: #FFD700; /* זהב */
+            --secondary-color: #40E0D0; /* טורקיז */
+            --background-color: #f0f8ff; /* רקע בהיר עם גוון כחלחל */
+            --card-background: linear-gradient(135deg, #ffffff, #e6f7ff);
+            --whatsapp-color: #25D366;
+            --text-color: #333333;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--background-color);
+            padding: 20px;
+            color: var(--text-color);
+        }
+        .card {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+        }
+        .card-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+            color: var(--primary-color);
+            padding: 30px;
+            background-color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .card-content {
+            padding: 30px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 18px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #E6C200;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #shareWhatsApp {
+            background-color: var(--whatsapp-color);
+            color: white;
+        }
+        #shareWhatsApp:hover {
+            background-color: #128C7E;
+        }
+        .final-greeting {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            display: none;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-left-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #finalGreetingText {
+            min-height: 200px;
+            resize: vertical;
+        }
+        .creator-tag {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: var(--text-color);
+            padding: 10px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 8px;
+        }
+        .creator-tag a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .creator-tag a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">יצירת ברכת שנה טובה</div>
+        <div class="card-content">
+            <div class="form-group">
+                <label for="sender">שם השולח</label>
+                <input type="text" id="sender" name="sender" placeholder="הכנס את שמך">
+            </div>
+            <div class="form-group">
+                <label for="recipient">שם הנמען</label>
+                <input type="text" id="recipient" name="recipient" placeholder="למי מיועדת הברכה?">
+            </div>
+            <div class="form-group">
+                <label for="relationship">הקשר שלי לנמען</label>
+                <input type="text" id="relationship" name="relationship" placeholder="לדוגמה: חבר, בן משפחה, עמית לעבודה">
+            </div>
+            <div class="form-group">
+                <label for="greeting">טקסט הברכה</label>
+                <textarea id="greeting" name="greeting" rows="4" placeholder="כתוב את ברכתך כאן"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="achievements">הישגים לציון</label>
+                <textarea id="achievements" name="achievements" rows="2" placeholder="הישגים משמעותיים של הנמען בשנה החולפת"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="goals">מטרות לשנה החדשה</label>
+                <textarea id="goals" name="goals" rows="2" placeholder="מטרות או שאיפות שאתה מאחל לנמען"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="memories">זיכרונות משותפים</label>
+                <textarea id="memories" name="memories" rows="2" placeholder="זיכרון או חוויה משותפת משמעותית"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="style">סגנון הברכה</label>
+                <select id="style" name="style">
+                    <option value="">בחר סגנון</option>
+                    <option value="funny">מצחיק</option>
+                    <option value="formal">רשמי</option>
+                    <option value="friendly">חברותי</option>
+                    <option value="poetic">שירי</option>
+                    <option value="inspirational">מעורר השראה</option>
+                </select>
+            </div>
+            <button onclick="createGreeting()">צור ברכה</button>
+            <div id="loading">
+                <div class="spinner"></div>
+                <p>מעבד את הבקשה, אנא המתן...</p>
+            </div>
+            <div class="final-greeting">
+                <h3>הברכה הסופית (ניתן לערוך)</h3>
+                <textarea id="finalGreetingText" style="width: 100%;"></textarea>
+                <button id="shareWhatsApp" onclick="shareOnWhatsApp()">שתף בווצאפ</button>
+            </div>
+        </div>
+        <div class="creator-tag">
+            נוצר ע"י שולמית: <a href="https://wa.me/972527609961" target="_blank">052-760-9961</a>
+        </div>
+    </div>
+
+    <script>
+        function createGreeting() {
+            const data = {
+                sender: document.getElementById('sender').value,
+                recipient: document.getElementById('recipient').value,
+                relationship: document.getElementById('relationship').value,
+                greeting: document.getElementById('greeting').value,
+                achievements: document.getElementById('achievements').value,
+                goals: document.getElementById('goals').value,
+                memories: document.getElementById('memories').value,
+                style: document.getElementById('style').value
+            };
+
+            document.getElementById('loading').style.display = 'block';
+            document.querySelector('.final-greeting').style.display = 'none';
+
+            const webhookUrl = 'https://hook.eu2.make.com/zzqj0mzlnzwxf7qp9gt97rpt3knvbcqs';
+            
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(finalGreeting => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('finalGreetingText').value = finalGreeting;
+                document.querySelector('.final-greeting').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loading').style.display = 'none';
+                alert('אירעה שגיאה בקבלת הברכה. נסה שנית מאוחר יותר.');
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const greeting = document.getElementById('finalGreetingText').value;
+            const encodedGreeting = encodeURIComponent(greeting);
+            window.open(`https://wa.me/?text=${encodedGreeting}`, '_blank');
+        }
+    </script>
+</body>
+</html>
